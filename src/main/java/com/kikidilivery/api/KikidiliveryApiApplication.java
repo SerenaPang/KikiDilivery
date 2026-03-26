@@ -1,0 +1,13 @@
+package com.kikidilivery.api;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class KikidiliveryApiApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(KikidiliveryApiApplication.class, args);
+	}
+
+}

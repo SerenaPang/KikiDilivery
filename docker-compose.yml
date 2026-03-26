@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: kikidilivery-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: kikidilivery
+      POSTGRES_USER: kikidilivery
+      POSTGRES_PASSWORD: kikidilivery
+    ports:
+      - "55432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kikidilivery"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer
+    container_name: kikidilivery-adminer
+    restart: always
+    ports:
+      - "8081:8080"
+
+volumes:
+  postgres_data:
