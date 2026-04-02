@@ -2,21 +2,25 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
     <changeSet id="004" author="kikidilivery">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="courier_tasks" />
+            </not>
+        </preConditions>
         <createTable tableName="courier_tasks">
             <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()">
-                <constraints primaryKey="true" nullable="false"/>
+                <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="shipment_id" type="UUID">
-                <constraints foreignKeyName="fk_tasks_shipment" references="shipments(id)"/>
+                <constraints foreignKeyName="fk_tasks_shipment" references="shipments(id)" />
             </column>
             <column name="driver_id" type="UUID">
-                <constraints foreignKeyName="fk_tasks_driver" references="users(id)"/>
+                <constraints foreignKeyName="fk_tasks_driver" references="users(id)" />
             </column>
-            <column name="status" type="VARCHAR(50)"/>
+            <column name="status" type="VARCHAR(50)" />
         </createTable>
     </changeSet>
 

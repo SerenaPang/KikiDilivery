@@ -2,20 +2,25 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
     <changeSet id="003" author="kikidilivery">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="tracking_events" />
+            </not>
+        </preConditions>
         <createTable tableName="tracking_events">
             <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()">
-                <constraints primaryKey="true" nullable="false"/>
+                <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="shipment_id" type="UUID">
-                <constraints foreignKeyName="fk_tracking_shipment" references="shipments(id)" deleteCascade="true"/>
+                <constraints foreignKeyName="fk_tracking_shipment" references="shipments(id)"
+                    deleteCascade="true" />
             </column>
-            <column name="location" type="VARCHAR(255)"/>
-            <column name="status" type="VARCHAR(50)"/>
-            <column name="event_time" type="TIMESTAMPTZ"/>
+            <column name="location" type="VARCHAR(255)" />
+            <column name="status" type="VARCHAR(50)" />
+            <column name="event_time" type="TIMESTAMPTZ" />
         </createTable>
     </changeSet>
 
